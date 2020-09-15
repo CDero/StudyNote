@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>cder</title>
+<style>
+
+</style>
+<script>
+
+function setColor(i){
+	return i%2?'#CCC':'';
+}
+
+window.onload=function()
+{
+	var oTab=document.getElementById('tab1');
+	
+	for(var i=0;i<oTab.tBodies[0].rows.length;i++){
+		
+		if(i%2){
+			oTab.tBodies[0].rows[i].style.background='';
+		}else{
+			oTab.tBodies[0].rows[i].style.background='#CCC';
+		}
+		
+		var oldColor='';
+		oTab.tBodies[0].rows[i].onmouseover=function(){
+			oldColor = this.style.background;
+			this.style.background='green';
+		};
+		oTab.tBodies[0].rows[i].onmouseout=function(){
+			this.style.background=oldColor;
+		};
+	}
+	
+	var oBtn=document.getElementById('btn1');
+	var oName=document.getElementById('name');
+	var oAge=document.getElementById('age');
+	var oldId= oTab.tBodies[0].rows.length+1;
+	
+	oBtn.onclick=function(){
+		var oTr=document.createElement('tr');
+		
+		var oTd=document.createElement('td');
+		oTd.innerHTML=oldId++;
+		oTr.appendChild(oTd);
+		
+		var oTd=document.createElement('td');
+		oTd.innerHTML=oName.value;
+		oTr.appendChild(oTd);
+		
+		var oTd=document.createElement('td');
+		oTd.innerHTML=oAge.value;
+		oTr.appendChild(oTd);
+		
+		var oTd=document.createElement('td');
+		oTd.innerHTML='<a  href="javascript:;">delete</a>';
+		oTr.appendChild(oTd);		
+		
+		oTr.style.background=setColor(oldId-1);
+		oTab.tBodies[0].appendChild(oTr);
+		
+		oTd.getElementsByTagName('a')[0].onclick=function(){
+			oTab.tBodies[0].removeChild(this.parentNode.parentNode);
+		};
+		
+	};
+};
+
+</script>
+</head>
+
+<body>
+NAME:<input id='name' type="text" />
+AGE:<input id='age' type="text" />
+<input id="btn1" type="button" width="500" value="ADD"/>
+
+<table id='tab1' border='1' width='500'>
+	<thead>
+		<td>ID</td>
+		<td>NAME</td>
+		<td>AGE</td>
+		<td>OPERATION</td>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>Blue</td>
+			<td>27</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>aaa</td>
+			<td>25</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>vvv</td>
+			<td>27</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>ddd</td>
+			<td>27</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>www</td>
+			<td>27</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
