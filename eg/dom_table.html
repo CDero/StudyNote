@@ -66,6 +66,57 @@ window.onload=function()
 		};
 		
 	};
+	
+	var oTxt=document.getElementById('name');
+	var oBtn2=document.getElementById('btn2');
+	
+	oBtn2.onclick=function(){
+		var flag=[];
+		for(var i=0;i<oTab.tBodies[0].rows.length;i++){
+			flag[i]=0;
+			var sTab=oTab.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+			var sTxt=oTxt.value.toLowerCase();
+			var arr=sTxt.split(' ');
+			for(var j=0;j<arr.length;j++){
+				if( sTab.search(arr[j])!=-1){
+					oTab.tBodies[0].rows[i].style.background = "yellow";
+					flag[i] = 1;
+				}else{
+					
+				}
+			}
+		}
+		//alert(flag);
+		for(var k=0;k<oTab.tBodies[0].rows.length;k++){
+			if(flag[k] != 1){
+				oTab.tBodies[0].rows[k].style.background = setColor(k+1);
+			}
+		}
+	};
+	
+	var oBtn3=document.getElementById('btn3');
+	oBtn3.onclick=function(){
+		var arr=[];
+		
+		for(var i=0;i<oTab.tBodies[0].rows.length;i++){
+			arr[i]=oTab.tBodies[0].rows[i];
+		}
+		arr.sort(function(tr1,tr2){
+			var n1 = parseInt(tr1.cells[0].innerHTML);
+			var n2 = parseInt(tr2.cells[0].innerHTML);
+			
+			return n1-n2;
+		});
+		for(var i=0;i<arr.length;i++){
+			oTab.tBodies[0].appendChild(arr[i]);
+			//oTab.tBodies[0].rows[i].style.background = setColor(i+1);
+		}
+		
+		for(var i=0;i<oTab.tBodies[0].rows.length;i++){
+			//oTab.tBodies[0].appendChild(arr[i]);
+			oTab.tBodies[0].rows[i].style.background = setColor(i+1);
+		}
+	};
 };
 
 </script>
@@ -75,6 +126,9 @@ window.onload=function()
 NAME:<input id='name' type="text" />
 AGE:<input id='age' type="text" />
 <input id="btn1" type="button" width="500" value="ADD"/>
+<input id="btn2" type="button" width="500" value="SEARCH"/>
+<input id="btn3" type="button" width="500" value="PAIXU"/>
+
 
 <table id='tab1' border='1' width='500'>
 	<thead>
@@ -85,19 +139,19 @@ AGE:<input id='age' type="text" />
 	</thead>
 	<tbody>
 		<tr>
-			<td>1</td>
+			<td>2</td>
 			<td>Blue</td>
 			<td>27</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>2</td>
+			<td>3</td>
 			<td>aaa</td>
 			<td>25</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>3</td>
+			<td>1</td>
 			<td>vvv</td>
 			<td>27</td>
 			<td></td>
