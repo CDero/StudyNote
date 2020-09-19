@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+<head>	
+<meta charset='utf-8'>
+<title>匀速运动</title>
+<style>
+#div1 {width:200px; height:200px; background:red; position:absolute; top:50px; left:0px;}
+#div2 {width:150px; height:200px; background:green; position:absolute; top:250px; left:-150px;}
+#div2 span { position:absolute; width:20px; height:60px; line-height:20px; background:yellow; right:-20px; top:70px;}
+#div3 {width:200px; height:200px; top:450px; left:0px; background:blue; position:absolute; filter:alpha(opacity:30); opacity:0.3; }
+</style>
+<script>
+
+var timer1=null;
+var dir=true;
+function startMove1(speed){
+    var oDiv=document.getElementById('div1');
+    
+    //var speed=7;
+    if(dir){
+        dir=false;
+    }else{
+        dir=true;
+    }
+    clearInterval(timer1);
+    timer1=setInterval(function(){   
+            if(dir){
+                if(oDiv.offsetLeft>=300){
+                    clearInterval(timer1);
+                    oDiv.style.left='300px';
+                    //dir=false;
+                }else{
+                    oDiv.style.left=oDiv.offsetLeft+speed+'px';
+                }
+            }else{
+                if(oDiv.offsetLeft<=0){
+                    clearInterval(timer1);
+                    oDiv.style.left='0px';
+                    //dir=true;
+                }else{
+                    oDiv.style.left=oDiv.offsetLeft-speed+'px';
+                    
+               }
+            }
+            
+        
+    },30);
+}
+
+var timer2=null;
+function startMove2(speed,target){
+    var oDiv=document.getElementById('div2');
+    
+    //var speed=5;
+    clearInterval(timer2);
+    timer2=setInterval(function(){
+        if(oDiv.offsetLeft==target){
+            clearInterval(timer2);
+        }else{
+            oDiv.style.left=oDiv.offsetLeft+speed+'px'           ;
+        }
+    },30);
+}
+
+var timer3=null;
+function startMove3(target){
+    var oDiv=document.getElementById('div3');
+    
+    var speed=0;
+    var alpha=oDiv.style.opacity*100;
+
+    clearInterval(timer3);
+    timer3=setInterval(function(){
+         if(target== 100){
+            speed = 10;
+        }else{
+            speed = -10;
+        }
+        
+        if(alpha==target){
+            clearInterval(timer3);
+        }else{
+            alpha+=speed;
+            oDiv.style.filter='alpha(opacity:'+alpha+')';
+            oDiv.style.opacity=alpha/100;
+        }
+    },30);
+}
+
+window.onload=function(){
+	var oBtn=document.getElementById('btn1');
+    var oDiv2=document.getElementById('div2');
+    var oDiv3=document.getElementById('div3');
+    
+    oBtn.onclick=function(){
+        startMove1(5);
+    };
+    
+    oDiv2.onmouseover=function(){
+        startMove2(5,0);
+    };
+    oDiv2.onmouseout=function(){
+        startMove2(-5,-150);
+    };
+    oDiv3.onmouseover=function(){
+        startMove3(100);
+    };
+    oDiv3.onmouseout=function(){
+        startMove3(30);
+    };
+}
+</script>
+
+</head
+
+<body>
+<input type="button" id="btn1" value="开始运动">
+<div id="div1">
+</div>
+<div id="div2">
+    <span>分享到</span>
+</div>
+<div id="div3">
+</div>
+
+
+</body>
+</html>
